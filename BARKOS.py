@@ -37,3 +37,7 @@ def loadLevel(level):
             k+=1 #index
         t+=1 #index
     return leveldata
+
+def isOverlapping (rect1, rect2):
+    return rect1.colliderect(rect2)
+    

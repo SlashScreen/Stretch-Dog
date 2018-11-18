@@ -33,10 +33,11 @@ def main():
     level = bark.loadLevel("level1.bark")
     dogpos = 0
     scroll = 0
+    dead = False
     
     ###LOOP###
     
-    while True:
+    while not dead:
         background.fill((255,255,255))
         
         ###INCREMENT###
@@ -78,6 +79,8 @@ def main():
                 if not tile["tile"] == "air":
                     screenrect = pygame.Rect(rowcount*32+scroll,screen.get_size()[1]-(pos*32),32,32)
                     screen.blit(tileimg, screenrect)
+                    if bark.isOverlapping(feetrect,screenrect): #Test collision
+                        dead = True
                     
         ###CONTROL###
                     
