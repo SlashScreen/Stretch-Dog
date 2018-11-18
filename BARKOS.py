@@ -15,12 +15,15 @@ def loadLevel(level):
         leveldata[t]={}
         k = 0
         for c in i:
+            leveldata[t][k] = {}
             if c == "d":
-                leveldata[t][k] = {tile = "dirt"}
+                leveldata[t][k]["tile"] = "dirt"
             elif c == "g":
-                leveldata[t][k] = {tile = "grass"}
+                leveldata[t][k]["tile"] = "grass"
             elif c == "s":
-                leveldata[t][k] = {tile = "stone"}
+                leveldata[t][k]["tile"] = "stone"
+            else:
+                leveldata[t][k]["tile"] = "air"
             k+=1
         t+=1
     return leveldata
