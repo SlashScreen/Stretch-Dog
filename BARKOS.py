@@ -10,11 +10,14 @@ def loadLevel(level):
     leveldata = {}
     f = open("levels/"+level)
     rows = f.read().splitlines()
+    #print(rows)
     t=0
     for i in rows:
+       # print(i)
         leveldata[t]={}
         k = 0
         for c in i:
+            #print(c)
             leveldata[t][k] = {}
             if c == "d":
                 leveldata[t][k]["tile"] = "dirt"
