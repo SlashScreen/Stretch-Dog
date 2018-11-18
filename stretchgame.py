@@ -12,6 +12,8 @@ gravity = -1
 vel = 0
 clock = pygame.time.Clock()
 width= 15
+dogpos = 0
+scroll = 0
 
 def main():
     
@@ -22,6 +24,8 @@ def main():
     global vel
     global clock
     global width
+    global dogpos
+    global scroll
     
     ###VARIABLES###
     
@@ -31,8 +35,7 @@ def main():
     background = background.convert()
     background.fill((250, 250, 250))
     level = bark.loadLevel("level1.bark")
-    dogpos = 0
-    scroll = 0
+    
     dead = False
     
     ###LOOP###
@@ -50,10 +53,10 @@ def main():
         ###LIMITS###
         
         if foot_distance >= 300:
-            foot_distance = 300
+            foot_distance = 299
             vel = 0
-        if foot_distance <= dogpos:
-            foot_distance = dogpos+1
+        if foot_distance <= 0:
+            foot_distance = 1
 
         ##DRAW DEBUG BOX AND LEGS###
             
@@ -80,7 +83,10 @@ def main():
                     screenrect = pygame.Rect(rowcount*32+scroll,screen.get_size()[1]-(pos*32),32,32)
                     screen.blit(tileimg, screenrect)
                     if bark.isOverlapping(feetrect,screenrect): #Test collision
-                        dead = True
+                        dogpos = 0
+                        scroll = 0
+                        vel = 0
+                        foot_distance = 0
                     
         ###CONTROL###
                     
