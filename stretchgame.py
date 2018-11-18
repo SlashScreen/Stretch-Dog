@@ -65,7 +65,8 @@ def main():
             
         feetrect = pygame.Rect(screen.get_size()[0]/2,15+dogpos,30,foot_distance) ##Where foot is
         colbox = pygame.Rect(screen.get_size()[0]/2,15+dogpos,30,foot_distance-15) ##where dog dies
-        footbox = pygame.Rect(screen.get_size()[0]/2,foot_distance,30,15) ##Bottom of foot
+        floorbox = pygame.Rect(0,screen.get_size()[1],screen.get_size()[0],2)
+        footbox = pygame.Rect(screen.get_size()[0]/2,foot_distance+dogpos,30,15) ##Bottom of foot
         background.fill((0,0,0),rect = feetrect) #fill
         background.fill((0,0,255),rect = colbox) #fill
         background.fill((0,255,0),rect = footbox) #fill
@@ -90,7 +91,6 @@ def main():
                     screenrect = pygame.Rect(rowcount*32+scroll,screen.get_size()[1]-(pos*32),32,32)
                     screen.blit(tileimg, screenrect)
                     if bark.isOverlapping(footbox,screenrect): #Test if foot touch
-                        #print("foot")
                         vel = 0
                         foot_distance -= 1
                     if bark.isOverlapping(colbox,screenrect): #Test collision
