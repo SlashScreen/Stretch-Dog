@@ -21,6 +21,7 @@ def main():
     background = background.convert()
     background.fill((250, 250, 250))
     level = bark.loadLevel("level1.bark")
+    dogpos = 0
     print(level.keys())
     scroll = 0
     while True:
@@ -30,11 +31,11 @@ def main():
         if foot_distance >= 300:
             foot_distance = 300
             vel = 0
-        if foot_distance <= 0:
-            foot_distance = 1
-        feetrect = pygame.Rect(screen.get_size()[0]/2,15,30,foot_distance)
+        if foot_distance <= dogpos:
+            foot_distance = dogpos+1
+        feetrect = pygame.Rect(screen.get_size()[0]/2,15+dogpos,30,foot_distance) ##Where foot is
         background.fill((0,0,0),rect = feetrect)
-        myimage = pygame.transform.scale(myimage, (30, foot_distance))
+        myimage = pygame.transform.scale(myimage, (30, foot_distance)) #transform
         #print(vel,foot_distance)
         screen.blit(background, (0, 0))
         screen.blit(myimage, feetrect)
@@ -64,6 +65,15 @@ def main():
             if event.type == pygame.KEYDOWN:
                   if event.key == pygame.K_SPACE:
                     vel = 10 #Jump Strength
+        keys_pressed = pygame.key.get_pressed()
+        if keys_pressed[pygame.K_w]:
+            dogpos -= 1
+        if keys_pressed[pygame.K_s]:
+            dogpos += 1
+
+            
+        if dogpos <= 0:
+            dogpos = 1
 
  #       screen.blit(screen, (0, 0))
  #       pygame.display.flip()
