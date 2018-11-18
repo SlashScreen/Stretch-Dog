@@ -64,13 +64,16 @@ def main():
         ##DRAW DEBUG BOX AND LEGS###
             
         feetrect = pygame.Rect(screen.get_size()[0]/2,15+dogpos,30,foot_distance) ##Where foot is
-        colbox = pygame.Rect(screen.get_size()[0]/2,15+dogpos,30,foot_distance-30) ##where dog dies
+        colbox = pygame.Rect(screen.get_size()[0]/2,15+dogpos,30,foot_distance-15) ##where dog dies
+        footbox = pygame.Rect(screen.get_size()[0]/2,foot_distance,30,15) ##Bottom of foot
         background.fill((0,0,0),rect = feetrect) #fill
+        background.fill((0,0,255),rect = colbox) #fill
+        background.fill((0,255,0),rect = footbox) #fill
         myimage = pygame.transform.scale(myimage, (30, foot_distance)) #transform
         screen.blit(background, (0, 0)) ##Blit
         screen.blit(myimage, feetrect) #Blit
 
-        ###LOAD LEVEL###
+        ###RENDER LEVEL###
         
         for row in level.values():
             rowcount -= 1
@@ -86,11 +89,16 @@ def main():
                 if not tile["tile"] == "air":
                     screenrect = pygame.Rect(rowcount*32+scroll,screen.get_size()[1]-(pos*32),32,32)
                     screen.blit(tileimg, screenrect)
+                    if bark.isOverlapping(footbox,screenrect): #Test if foot touch
+                        #print("foot")
+                        vel = 0
+                        foot_distance -= 1
                     if bark.isOverlapping(colbox,screenrect): #Test collision
                         dogpos = 0
                         scroll = 0
                         vel = 0
                         foot_distance = 0
+                    
                     
         ###CONTROL###
                     
