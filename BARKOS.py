@@ -8,12 +8,18 @@
 #Collision
 
 def loadLevel(level):
+    
     ###VARIABLE###
+    
     leveldata = {}
+    
     ###RAD FILE###
+    
     f = open("levels/"+level)
     rows = f.read().splitlines()
+    
     ###READ###
+    
     t=0
     for i in rows: #Separate Rows / Per Row
         leveldata[t]={}
