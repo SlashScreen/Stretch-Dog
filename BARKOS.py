@@ -1,10 +1,11 @@
-#BARK-OS
+#BARKOS
 #Used for Stuff that involves the system
 
 #TODO#
 #Read Level and construct
 #Calculate Stretch
 #Save
+#Collision
 
 def loadLevel(level):
     ###VARIABLE###

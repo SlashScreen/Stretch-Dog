@@ -1,3 +1,4 @@
+#stretchgame.py - main.lua basically
 import pygame
 import BARKOS as bark
 
