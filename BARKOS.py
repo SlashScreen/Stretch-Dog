@@ -1,23 +1,23 @@
 #BARK-OS
 #Used for Stuff that involves the system
 
+#TODO#
 #Read Level and construct
 #Calculate Stretch
 #Save
-#Load
 
 def loadLevel(level):
+    ###VARIABLE###
     leveldata = {}
+    ###RAD FILE###
     f = open("levels/"+level)
     rows = f.read().splitlines()
-    #print(rows)
+    ###READ###
     t=0
-    for i in rows:
-       # print(i)
+    for i in rows: #Separate Rows / Per Row
         leveldata[t]={}
         k = 0
-        for c in i:
-            #print(c)
+        for c in i: #Separate Letters / Per Character
             leveldata[t][k] = {}
             if c == "d":
                 leveldata[t][k]["tile"] = "dirt"
@@ -27,6 +27,6 @@ def loadLevel(level):
                 leveldata[t][k]["tile"] = "stone"
             else:
                 leveldata[t][k]["tile"] = "air"
-            k+=1
-        t+=1
+            k+=1 #index
+        t+=1 #index
     return leveldata
