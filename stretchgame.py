@@ -37,8 +37,8 @@ def main(level):
     background = pygame.Surface(screen.get_size())
     background = background.convert()
     background.fill((250, 250, 250))
-    
-    
+    print(level)
+    win = False
     dead = False
     
     ###LOOP###
@@ -53,6 +53,8 @@ def main(level):
         foot_distance -= int(vel*dt)
         scroll += 1
         rowcount = 0
+            
+        #print(win)
         
         ###LIMITS###
         
@@ -76,8 +78,8 @@ def main(level):
         screen.blit(myimage, feetrect) #Blit
 
         ###RENDER LEVEL###
-        
-        for row in level.values():
+       # print(win)
+        for row in level["level"].values():
             rowcount -= 1
             pos = 0
             for tile in row.values():
@@ -89,23 +91,26 @@ def main(level):
                     tileimg = pygame.image.load("assets/stone.png")
                 elif tile["tile"] == "win":
                     tileimg = pygame.image.load("assets/win.png")
-                    winbox = pygame.Rect(rowcount*32+scroll,screen.get_size()[1]-(pos*32),32,32)
+                    winbox = pygame.Rect(screen.get_size()[1]-(rowcount*32+scroll),screen.get_size()[1]-(pos*32),32,32)
                     screen.blit(tileimg, screenrect)
-                    if bark.isOverlapping(colbox,winbox): #Test collision
-                        dead = True
-                        break
+                    if bark.isOverlapping(colbox,winbox): #Test win collision
+                        return
+                        
                 pos+=1
                 if not tile["tile"] == "air" or tile["tile"] == "win":
                     screenrect = pygame.Rect(rowcount*32+scroll,screen.get_size()[1]-(pos*32),32,32)
                     screen.blit(tileimg, screenrect)
+                    
                     if bark.isOverlapping(footbox,screenrect): #Test if foot touch
                         vel = 0
                         foot_distance -= 1
                     if bark.isOverlapping(colbox,screenrect): #Test collision
+                        print(tile["tile"])
                         dogpos = 0
                         scroll = 0
                         vel = 0
                         foot_distance = 0
+    
                 
                     
         ###CONTROL###
@@ -133,11 +138,3 @@ def main(level):
             
         pygame.display.flip()
         clock.tick(60)
-
-def loadAndPlay(levelname):
-    level = bark.loadLevel(levelname+".bark")
-    main(level)
-
-
-if __name__ == "__main__":
-    loadAndPlay("level1")

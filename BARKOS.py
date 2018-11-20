@@ -12,6 +12,7 @@ def loadLevel(level):
     ###VARIABLE###
     
     leveldata = {}
+    leveldata["level"] = {}
     
     ###RAD FILE###
     
@@ -19,23 +20,26 @@ def loadLevel(level):
     rows = f.read().splitlines()
     
     ###READ###
-    
+    leveldata["name"] = rows.pop(0)
+    leveldata["next"] = rows.pop(0)
+    print(leveldata["name"],leveldata["next"])
+
     t=0
     for i in rows: #Separate Rows / Per Row
-        leveldata[t]={}
+        leveldata["level"][t]={}
         k = 0
         for c in i: #Separate Letters / Per Character
-            leveldata[t][k] = {}
+            leveldata["level"][t][k] = {}
             if c == "d":
-                leveldata[t][k]["tile"] = "dirt"
+                leveldata["level"][t][k]["tile"] = "dirt"
             elif c == "g":
-                leveldata[t][k]["tile"] = "grass"
+                leveldata["level"][t][k]["tile"] = "grass"
             elif c == "s":
-                leveldata[t][k]["tile"] = "stone"
+                leveldata["level"][t][k]["tile"] = "stone"
             elif c == "f":
-                leveldata[t][k]["tile"] = "win"
+                leveldata["level"][t][k]["tile"] = "win"
             else:
-                leveldata[t][k]["tile"] = "air"
+                leveldata["level"][t][k]["tile"] = "air"
             k+=1 #index
         t+=1 #index
     return leveldata

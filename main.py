@@ -1,4 +1,9 @@
 #main.py - main file
 import stretchgame as stretch
+import BARKOS as bark
 
-stretch.loadAndPlay("level1")
+def loadAndPlay(levelname):
+    stretch.main(bark.loadLevel(levelname+".bark"))
+
+loadAndPlay("level1")
+loadAndPlay("level2")
