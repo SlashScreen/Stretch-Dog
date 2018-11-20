@@ -16,7 +16,8 @@ dogpos = 0
 scroll = 0
 jump = 50
 
-def main():
+
+def main(level):
     
     ##GLOBALS###
 
@@ -36,7 +37,7 @@ def main():
     background = pygame.Surface(screen.get_size())
     background = background.convert()
     background.fill((250, 250, 250))
-    level = bark.loadLevel("level1.bark")
+    
     
     dead = False
     
@@ -55,8 +56,8 @@ def main():
         
         ###LIMITS###
         
-        if foot_distance >= 300:
-            foot_distance = 299
+        if foot_distance+dogpos >= 300:
+            foot_distance = 299-dogpos
             vel = 0
         if foot_distance <= 0:
             foot_distance = 1
@@ -86,8 +87,15 @@ def main():
                     tileimg = pygame.image.load("assets/grass.png")
                 elif tile["tile"] == "stone":
                     tileimg = pygame.image.load("assets/stone.png")
+                elif tile["tile"] == "win":
+                    tileimg = pygame.image.load("assets/win.png")
+                    winbox = pygame.Rect(rowcount*32+scroll,screen.get_size()[1]-(pos*32),32,32)
+                    screen.blit(tileimg, screenrect)
+                    if bark.isOverlapping(colbox,winbox): #Test collision
+                        dead = True
+                        break
                 pos+=1
-                if not tile["tile"] == "air":
+                if not tile["tile"] == "air" or tile["tile"] == "win":
                     screenrect = pygame.Rect(rowcount*32+scroll,screen.get_size()[1]-(pos*32),32,32)
                     screen.blit(tileimg, screenrect)
                     if bark.isOverlapping(footbox,screenrect): #Test if foot touch
@@ -98,7 +106,7 @@ def main():
                         scroll = 0
                         vel = 0
                         foot_distance = 0
-                    
+                
                     
         ###CONTROL###
                     
@@ -125,5 +133,11 @@ def main():
             
         pygame.display.flip()
         clock.tick(60)
-    
-main()
+
+def loadAndPlay(levelname):
+    level = bark.loadLevel(levelname+".bark")
+    main(level)
+
+
+if __name__ == "__main__":
+    loadAndPlay("level1")
