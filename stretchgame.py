@@ -109,10 +109,10 @@ def main(level):
                     
         ###CONTROL###
                     
-        for event in pygame.event.get():
+        for event in pygame.event.get(): #Quit
             if event.type == pygame.QUIT:
-                return
-            if event.type == pygame.KEYDOWN:
+                raise Exception('Quitting Game')
+            if event.type == pygame.KEYDOWN: #Keydown
                 if event.key == pygame.K_SPACE:
                     vel = jump #Jump Strength
         keys_pressed = pygame.key.get_pressed()

@@ -22,6 +22,7 @@ def mainmenu():
     button = {}
     width = 100
     height = 30
+    offset = 50
     button["levels"] = {}
     button["levels"][0] = {}
     button["levels"][0]["file"] =  "level1"
@@ -41,21 +42,24 @@ def mainmenu():
         
         for but in button["levels"].values():
             pos+=1
-            rect = pygame.Rect((screen.get_size()[0]/2)-(width/2),pos*75,width,height) #Create button
+            rect = pygame.Rect((screen.get_size()[0]/2)-(width/2),(pos*75)+offset,width,height) #Create button
             textsurface = myfont.render("Some text!", 1, (255,255,0)) #Text Surface
             background.fill((0,0,0),rect = rect) #Draw button
             screen.blit(background, (0, 0)) #Blit button
             screen.blit(textsurface, (100, 100)) #Blit text
             if pygame.mouse.get_pressed()[0]: #Check if clicked
                 if rect.collidepoint(pygame.mouse.get_pos()):
-                    loadAndPlay(but["file"]) #Play
+                    try:
+                        loadAndPlay(but["file"]) #Play
+                    except:
+                        pygame.quit()
         screen.blit(background, (0, 0))
 
         ###CONTROLS###
         
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                return
+                pygame.quit()
             
         ###SYSTEM STUFF###
             
