@@ -51,7 +51,8 @@ def mainmenu():
                 if rect.collidepoint(pygame.mouse.get_pos()):
                     try:
                         loadAndPlay(but["file"]) #Play
-                    except:
+                    except Exception as e:
+                        print(e)
                         pygame.quit()
         screen.blit(background, (0, 0))
 

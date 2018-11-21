@@ -3,8 +3,8 @@
 import pygame
 import BARKOS as bark
 
-
-
+def getStandardRect(screen,rowcount,direction,scroll,pos):
+    return pygame.Rect(screen.get_size()[1]-(rowcount*32+scroll),screen.get_size()[1]-(pos*32),32,32)
 
 def main(level):
 
@@ -18,7 +18,8 @@ def main(level):
     clock = pygame.time.Clock()
     width= 15
     dogpos = 0
-    scroll = 0
+    scrollstart = 175
+    scroll = scrollstart
     jump = 50
 
     ###VARIABLES###
@@ -29,6 +30,7 @@ def main(level):
     background = background.convert()
     background.fill((250, 250, 250))
     dead = False
+    direction = 1
     
     ###LOOP###
     
@@ -40,7 +42,7 @@ def main(level):
         dt = (clock.get_time())/100
         vel+=gravity
         foot_distance -= int(vel*dt)
-        scroll += 1
+        scroll += (1*direction)
         rowcount = 0
             
         #print(win)
@@ -79,19 +81,24 @@ def main(level):
                 elif tile["tile"] == "stone":
                     tileimg = pygame.image.load("assets/stone.png")
                 elif tile["tile"] == "win":
-                    tileimg = pygame.image.load("assets/win.png")
-                    winbox = pygame.Rect(screen.get_size()[1]-(rowcount*32+scroll),screen.get_size()[1]-(pos*32),32,32) #Win box
-                    
-                    screen.blit(tileimg, screenrect)
+                    tileimg = pygame.image.load("assets/win.png") #Flip
+                    winbox = getStandardRect(screen,rowcount,direction,scroll,pos) #Win box
+                    screen.blit(tileimg, winbox)
                     background.fill((125,125,0),rect = winbox)
- #                   screen.blit(background, (0, 0))
-                    if bark.isOverlapping(colbox,winbox): #Test win collision
-                        print("super win")
+                    if bark.isOverlapping(colbox,winbox): #Test flip collision
                         return
+                elif tile["tile"] == "flip":
+                    tileimg = pygame.image.load("assets/flip.png")
+                    flipbox = getStandardRect(screen,rowcount,direction,scroll,pos) #Win box
+                    screen.blit(tileimg, flipbox)
+                    background.fill((125,125,0),rect = flipbox)
+                    if bark.isOverlapping(colbox,flipbox): #Test win collision
+                        print("flipping my pancakes")
+                        direction = -1
                         
                 pos+=1
                 if not tile["tile"] == "air" or tile["tile"] == "win":
-                    screenrect = pygame.Rect(screen.get_size()[1]-(rowcount*32+scroll),screen.get_size()[1]-(pos*32),32,32) #regular tile
+                    screenrect = getStandardRect(screen,rowcount,direction,scroll,pos) #regular tile
                     screen.blit(tileimg, screenrect)
                     
                     if bark.isOverlapping(footbox,screenrect): #Test if foot touch
@@ -99,11 +106,12 @@ def main(level):
                         foot_distance -= 1
                     if bark.isOverlapping(colbox,screenrect): #Test collision
                         print(tile["tile"])
-                        if not tile["tile"] == "win":
-                            dogpos = 0
-                            scroll = 0
-                            vel = 0
-                            foot_distance = 0
+                        if not tile["tile"] == "win" :
+                            if not tile["tile"] == "flip":
+                                dogpos = 0
+                                scroll = scrollstart
+                                vel = 0
+                                foot_distance = 0
     
                 
                     
