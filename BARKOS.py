@@ -2,10 +2,7 @@
 #Used for Stuff that involves the system
 
 #TODO#
-#Read Level and construct
-#Calculate Stretch
-#Save
-#Collision
+#Save, Load
 
 def loadLevel(level):
     
