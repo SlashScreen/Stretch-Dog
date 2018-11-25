@@ -52,7 +52,7 @@ def mainmenu():
                     try:
                         loadAndPlay(but["file"]) #Play
                     except Exception as e:
-                        print(e)
+                        #print(e)
                         pygame.quit()
         screen.blit(background, (0, 0))
 

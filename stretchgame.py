@@ -52,8 +52,8 @@ def main(level):
         if foot_distance+dogpos >= 300:
             foot_distance = 299-dogpos
             vel = 0
-        if foot_distance <= 0:
-            foot_distance = 1
+        if foot_distance <= 20:
+            foot_distance = 21
 
         ##DRAW DEBUG BOX AND LEGS###
             
@@ -93,7 +93,7 @@ def main(level):
                     screen.blit(tileimg, flipbox)
                     background.fill((125,125,0),rect = flipbox)
                     if bark.isOverlapping(colbox,flipbox): #Test win collision
-                        print("flipping my pancakes")
+                       # print("flipping my pancakes")
                         direction = -1
                         
                 pos+=1
@@ -105,13 +105,14 @@ def main(level):
                         vel = 0
                         foot_distance -= 1
                     if bark.isOverlapping(colbox,screenrect): #Test collision
-                        print(tile["tile"])
+                        #print(tile["tile"])
                         if not tile["tile"] == "win" :
                             if not tile["tile"] == "flip":
                                 dogpos = 0
                                 scroll = scrollstart
                                 vel = 0
                                 foot_distance = 0
+                                direction = 1
     
                 
                     
