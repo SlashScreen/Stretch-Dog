@@ -24,8 +24,10 @@ def main(level):
 
     ###VARIABLES###
     
-    myimage = pygame.image.load("assets/feetv1.png")
-    imagerect = myimage.get_rect()
+    doglegs = pygame.image.load("assets/feetv2.png")
+    dogbody = pygame.image.load("assets/dogbody.png")
+    dogpaws = pygame.image.load("assets/paws.png")
+    imagerect = doglegs.get_rect()
     background = pygame.Surface(screen.get_size())
     background = background.convert()
     background.fill((250, 250, 250))
@@ -61,12 +63,15 @@ def main(level):
         colbox = pygame.Rect(screen.get_size()[0]/2,15+dogpos,30,foot_distance-15) ##where dog dies
         floorbox = pygame.Rect(0,screen.get_size()[1],screen.get_size()[0],2)
         footbox = pygame.Rect(screen.get_size()[0]/2,foot_distance+dogpos,30,15) ##Bottom of foot
+        bodybox = pygame.Rect(screen.get_size()[0]/2,dogpos,30,15)
         background.fill((0,0,0),rect = feetrect) #fill
         background.fill((0,0,255),rect = colbox) #fill
         background.fill((0,255,0),rect = footbox) #fill
-        myimage = pygame.transform.scale(myimage, (30, foot_distance)) #transform
+        legsurface = pygame.transform.scale(doglegs, (30, foot_distance-15)) #transform
         screen.blit(background, (0, 0)) ##Blit
-        screen.blit(myimage, feetrect) #Blit
+        screen.blit(dogbody, bodybox) #blit body
+        screen.blit(legsurface, feetrect) #Blit legs
+        screen.blit(dogpaws, footbox) #Blit paws
 
         ###RENDER LEVEL###
        # print(win)
