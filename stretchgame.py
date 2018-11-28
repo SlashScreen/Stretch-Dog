@@ -32,6 +32,7 @@ def main(level):
     background = background.convert()
     background.fill((250, 250, 250))
     dead = False
+    debug = False
     direction = 1
     
     ###LOOP###
@@ -61,17 +62,23 @@ def main(level):
             
         feetrect = pygame.Rect(screen.get_size()[0]/2,15+dogpos,30,foot_distance) ##Where foot is
         colbox = pygame.Rect(screen.get_size()[0]/2,15+dogpos,30,foot_distance-15) ##where dog dies
-        floorbox = pygame.Rect(0,screen.get_size()[1],screen.get_size()[0],2)
         footbox = pygame.Rect(screen.get_size()[0]/2,foot_distance+dogpos,30,15) ##Bottom of foot
         bodybox = pygame.Rect(screen.get_size()[0]/2,dogpos,30,15)
-        background.fill((0,0,0),rect = feetrect) #fill
-        background.fill((0,0,255),rect = colbox) #fill
-        background.fill((0,255,0),rect = footbox) #fill
+        if debug == True:
+            background.fill((0,0,0),rect = feetrect) #fill
+            background.fill((0,0,255),rect = colbox) #fill
+            background.fill((0,255,0),rect = footbox) #fill
         legsurface = pygame.transform.scale(doglegs, (30, foot_distance-15)) #transform
-        screen.blit(background, (0, 0)) ##Blit
-        screen.blit(dogbody, bodybox) #blit body
-        screen.blit(legsurface, feetrect) #Blit legs
-        screen.blit(dogpaws, footbox) #Blit paws
+        screen.blit(background, (0, 0)) ##Blit debug boxes
+        if direction == -1:
+            screen.blit(pygame.transform.flip(dogbody,True,False), bodybox) #blit body
+            screen.blit(pygame.transform.flip(dogpaws,True,False), footbox) #blit paws
+            screen.blit(pygame.transform.flip(legsurface,True,False), colbox) #blit legs
+        else:
+            screen.blit(pygame.transform.flip(dogbody,False,False), bodybox) #blit body
+            screen.blit(pygame.transform.flip(dogpaws,False,False), footbox) #blit paws
+            screen.blit(pygame.transform.flip(legsurface,False,False), colbox) #blit legs
+ #       screen.blit(dogpaws, footbox) #Blit paws
 
         ###RENDER LEVEL###
        # print(win)
