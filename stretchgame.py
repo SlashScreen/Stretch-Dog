@@ -58,7 +58,7 @@ def main(level):
         if foot_distance <= 20:
             foot_distance = 21
 
-        ##DRAW DEBUG BOX AND LEGS###
+        ##DRAW DEBUG BOX AND DOG###
             
         feetrect = pygame.Rect(screen.get_size()[0]/2,15+dogpos,30,foot_distance) ##Where foot is
         colbox = pygame.Rect(screen.get_size()[0]/2,15+dogpos,30,foot_distance-15) ##where dog dies
@@ -69,14 +69,15 @@ def main(level):
             background.fill((0,0,255),rect = colbox) #fill
             background.fill((0,255,0),rect = footbox) #fill
         legsurface = pygame.transform.scale(doglegs, (30, foot_distance-15)) #transform
+        pawsurface = pygame.transform.scale(dogpaws, (30,15)) #transform
         screen.blit(background, (0, 0)) ##Blit debug boxes
         if direction == -1:
             screen.blit(pygame.transform.flip(dogbody,True,False), bodybox) #blit body
-            screen.blit(pygame.transform.flip(dogpaws,True,False), footbox) #blit paws
+            screen.blit(pygame.transform.flip(pawsurface,True,False), footbox) #blit paws
             screen.blit(pygame.transform.flip(legsurface,True,False), colbox) #blit legs
         else:
             screen.blit(pygame.transform.flip(dogbody,False,False), bodybox) #blit body
-            screen.blit(pygame.transform.flip(dogpaws,False,False), footbox) #blit paws
+            screen.blit(pygame.transform.flip(pawsurface,False,False), footbox) #blit paws
             screen.blit(pygame.transform.flip(legsurface,False,False), colbox) #blit legs
  #       screen.blit(dogpaws, footbox) #Blit paws
 
@@ -105,7 +106,6 @@ def main(level):
                     screen.blit(tileimg, flipbox)
                     background.fill((125,125,0),rect = flipbox)
                     if bark.isOverlapping(colbox,flipbox): #Test win collision
-                       # print("flipping my pancakes")
                         direction = -1
                         
                 pos+=1
@@ -117,7 +117,6 @@ def main(level):
                         vel = 0
                         foot_distance -= 1
                     if bark.isOverlapping(colbox,screenrect): #Test collision
-                        #print(tile["tile"])
                         if not tile["tile"] == "win" :
                             if not tile["tile"] == "flip":
                                 dogpos = 0
