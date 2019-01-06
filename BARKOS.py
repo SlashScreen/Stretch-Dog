@@ -37,6 +37,8 @@ def loadLevel(level):
                 leveldata["level"][t][k]["tile"] = "win"
             elif c == "l":
                 leveldata["level"][t][k]["tile"] = "flip"
+            elif c == "c":
+                leveldata["level"][t][k]["tile"] = "coin"
             else:
                 leveldata["level"][t][k]["tile"] = "air"
             k+=1 #index

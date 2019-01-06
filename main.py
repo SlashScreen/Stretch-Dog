@@ -2,11 +2,13 @@
 import stretchgame as stretch
 import BARKOS as bark
 import pygame
+coins = 0
 
-def loadAndPlay(levelname):
-    stretch.main(bark.loadLevel(levelname+".bark"))
+def loadAndPlay(levelname,coins):
+    c = stretch.main(bark.loadLevel(levelname+".bark"),coins)
+    return c
 
-def mainmenu():
+def mainmenu(coins):
 
     ###INIT###
     
@@ -50,7 +52,7 @@ def mainmenu():
             if pygame.mouse.get_pressed()[0]: #Check if clicked
                 if rect.collidepoint(pygame.mouse.get_pos()):
                     try:
-                        loadAndPlay(but["file"]) #Play
+                        coins = loadAndPlay(but["file"],coins) #Play
                     except Exception as e:
                         print(e)
                         pygame.quit()
@@ -67,4 +69,4 @@ def mainmenu():
         pygame.display.flip()
         clock.tick(60)
 
-mainmenu()
+mainmenu(coins)

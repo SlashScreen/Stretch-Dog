@@ -6,12 +6,13 @@ import BARKOS as bark
 def getStandardRect(screen,rowcount,direction,scroll,pos):
     return pygame.Rect(screen.get_size()[1]-(rowcount*32+scroll),screen.get_size()[1]-(pos*32),32,32)
 
-def main(level):
+def main(level,coins):
 
     ###INIT###
-
+    
     pygame.init()
     screen = pygame.display.set_mode((400, 300))
+    c = coins
     foot_distance = 0
     gravity = -3
     vel = 0
@@ -99,7 +100,7 @@ def main(level):
                     screen.blit(tileimg, winbox)
                     background.fill((125,125,0),rect = winbox)
                     if bark.isOverlapping(colbox,winbox): #Test flip collision
-                        return
+                        return c
                 elif tile["tile"] == "flip":
                     tileimg = pygame.image.load("assets/flip.png")
                     flipbox = getStandardRect(screen,rowcount,direction,scroll,pos) #Win box
