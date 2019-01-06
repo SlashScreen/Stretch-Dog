@@ -30,7 +30,7 @@ def main(level):
     imagerect = doglegs.get_rect()
     background = pygame.Surface(screen.get_size())
     background = background.convert()
-    background.fill((250, 250, 250))
+    background.fill((135,206,235))
     dead = False
     debug = False
     direction = 1
@@ -38,7 +38,7 @@ def main(level):
     ###LOOP###
     
     while not dead:
-        background.fill((255,255,255))
+        background.fill((135,206,235))
         
         ###INCREMENT###
 
