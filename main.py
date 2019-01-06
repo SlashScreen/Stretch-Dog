@@ -49,13 +49,14 @@ def mainmenu(coins):
             background.fill((0,0,0),rect = rect) #Draw button
             screen.blit(background, (0, 0)) #Blit button
             screen.blit(textsurface, (100, 100)) #Blit text
+            #print("past blit")
             if pygame.mouse.get_pressed()[0]: #Check if clicked
                 if rect.collidepoint(pygame.mouse.get_pos()):
                     try:
                         coins = loadAndPlay(but["file"],coins) #Play
                         print (coins)
                     except Exception as e:
-                        print(e)
+                        print(e,"error")
                         pygame.quit()
         screen.blit(background, (0, 0))
 

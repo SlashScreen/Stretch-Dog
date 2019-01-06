@@ -9,7 +9,7 @@ def getStandardRect(screen,rowcount,direction,scroll,pos):
 def main(level,coins):
 
     ###INIT###
-    
+    print("init")
     pygame.init()
     screen = pygame.display.set_mode((400, 300))
     c = coins
@@ -84,24 +84,27 @@ def main(level,coins):
 
         ###RENDER LEVEL###
        # print(win)
+        for coin in level["coins"].values():
+            if coin.getVisible:
+                #print("coin")
+                cx,cy = coin.getPos()
+                screenrect = getStandardRect(screen,cx,direction,scroll,cy) #regular tile
+                screen.blit(coin.getImg(), screenrect)
+                if bark.isOverlapping(footbox,screenrect):
+                    c += 1
+                    coin.collect()
+            
         for row in level["level"].values():
             rowcount -= 1
             pos = 0
             for tile in row.values():
+                #print("tile",tile)
                 if tile["tile"] == "dirt":
                     tileimg = pygame.image.load("assets/dirt.png")
                 elif tile["tile"] == "grass":
                     tileimg = pygame.image.load("assets/grass.png")
                 elif tile["tile"] == "stone":
                     tileimg = pygame.image.load("assets/stone.png")
-                elif tile["tile"] == "coin":
-                    tileimg = pygame.image.load("assets/coin.png")
-                    cbox = getStandardRect(screen,rowcount,direction,scroll,pos) #coin box - make object?
-                    #screen.blit(tileimg, cbox)
-                    #background.fill((125,125,0),rect = cbox)
-                    if bark.isOverlapping(colbox,cbox): #Test coin collision
-                        c += 1
-                        
                 elif tile["tile"] == "win":
                     tileimg = pygame.image.load("assets/win.png") #Flip
                     winbox = getStandardRect(screen,rowcount,direction,scroll,pos) #Win box
@@ -116,7 +119,7 @@ def main(level,coins):
                     background.fill((125,125,0),rect = flipbox)
                     if bark.isOverlapping(colbox,flipbox): #Test win collision
                         direction = -1
-                        
+                #print(str(tile))
                 pos+=1
                 if not tile["tile"] == "air" or tile["tile"] == "win":
                     screenrect = getStandardRect(screen,rowcount,direction,scroll,pos) #regular tile
@@ -127,13 +130,13 @@ def main(level,coins):
                         foot_distance -= 1
                     if bark.isOverlapping(colbox,screenrect): #Test collision
                         if not tile["tile"] == "win" :
-                            if not tile["tile"] == "flip":
-                                if not tile["tile"] == "coin": #can compress into 1 statement
-                                    dogpos = 0
-                                    scroll = scrollstart
-                                    vel = 0
-                                    foot_distance = 0
-                                    direction = 1
+                            if not tile["tile"] == "flip": #can compress into 1 statement
+                                #DIE#
+                                dogpos = 0
+                                scroll = scrollstart
+                                vel = 0
+                                foot_distance = 0
+                                direction = 1
     
                 
                     
