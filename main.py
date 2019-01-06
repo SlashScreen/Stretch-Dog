@@ -53,6 +53,7 @@ def mainmenu(coins):
                 if rect.collidepoint(pygame.mouse.get_pos()):
                     try:
                         coins = loadAndPlay(but["file"],coins) #Play
+                        print (coins)
                     except Exception as e:
                         print(e)
                         pygame.quit()

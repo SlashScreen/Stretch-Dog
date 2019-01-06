@@ -94,6 +94,14 @@ def main(level,coins):
                     tileimg = pygame.image.load("assets/grass.png")
                 elif tile["tile"] == "stone":
                     tileimg = pygame.image.load("assets/stone.png")
+                elif tile["tile"] == "coin":
+                    tileimg = pygame.image.load("assets/coin.png")
+                    cbox = getStandardRect(screen,rowcount,direction,scroll,pos) #coin box - make object?
+                    #screen.blit(tileimg, cbox)
+                    #background.fill((125,125,0),rect = cbox)
+                    if bark.isOverlapping(colbox,cbox): #Test coin collision
+                        c += 1
+                        
                 elif tile["tile"] == "win":
                     tileimg = pygame.image.load("assets/win.png") #Flip
                     winbox = getStandardRect(screen,rowcount,direction,scroll,pos) #Win box
@@ -120,11 +128,12 @@ def main(level,coins):
                     if bark.isOverlapping(colbox,screenrect): #Test collision
                         if not tile["tile"] == "win" :
                             if not tile["tile"] == "flip":
-                                dogpos = 0
-                                scroll = scrollstart
-                                vel = 0
-                                foot_distance = 0
-                                direction = 1
+                                if not tile["tile"] == "coin": #can compress into 1 statement
+                                    dogpos = 0
+                                    scroll = scrollstart
+                                    vel = 0
+                                    foot_distance = 0
+                                    direction = 1
     
                 
                     
