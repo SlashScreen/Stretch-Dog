@@ -85,7 +85,7 @@ def main(level,coins):
         ###RENDER LEVEL###
        # print(win)
         for coin in level["coins"].values():
-            if coin.getVisible:
+            if coin.getVisible():
                 #
                 cx,cy = coin.getPos()
                # print(cx,cy)
