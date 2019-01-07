@@ -93,7 +93,7 @@ def main(level,coins):
                 screen.blit(coin.getImg(), screenrect)
                 background.fill((0,0,255),rect = screenrect)
                 if bark.isOverlapping(colbox,screenrect):
-                    print("coin")
+                    #print("coin")
                     c += 1
                     coin.collect()
             
