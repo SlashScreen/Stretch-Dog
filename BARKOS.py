@@ -47,7 +47,6 @@ def loadLevel(level):
                 elif c == "l":
                     leveldata["level"][t][k]["tile"] = "flip"
                     k+=1 #index
-                
                 else:
                     leveldata["level"][t][k]["tile"] = "air"
                     k+=1 #index
@@ -55,8 +54,8 @@ def loadLevel(level):
             else:
                 leveldata["coins"][cindex] = cclass.coin(t,k)
                 cindex+=1
-            
         t+=1 #index
+    print("leveldata------",leveldata)
     return leveldata
 
 def isOverlapping (rect1, rect2):

@@ -8,10 +8,13 @@ class coin:
         self.y = y
         self.visible = True
         self.rect = pygame.Rect(self.x,self.y,32,32)
-        self.img = pygame.image.load("assets/stone.png")
+        self.img = pygame.image.load("assets/coin.png")
 
     def getVisible(self):
         return self.visible
+
+    def getRect(self):
+        return self.rect
 
     def getPos(self):
         return self.x,self.y
@@ -20,7 +23,9 @@ class coin:
         return self.img
 
     def collect(self):
-        self.visible = False
+        if self.visible:
+            self.visible = False
+            print("collected")
 
     def isColliding(self,other):
         return bark.isOverlapping(other,self.rect)

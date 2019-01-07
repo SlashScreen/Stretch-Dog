@@ -86,11 +86,14 @@ def main(level,coins):
        # print(win)
         for coin in level["coins"].values():
             if coin.getVisible:
-                #print("coin")
+                #
                 cx,cy = coin.getPos()
+               # print(cx,cy)
                 screenrect = getStandardRect(screen,cx,direction,scroll,cy) #regular tile
                 screen.blit(coin.getImg(), screenrect)
-                if bark.isOverlapping(footbox,screenrect):
+                background.fill((0,0,255),rect = screenrect)
+                if bark.isOverlapping(colbox,screenrect):
+                    print("coin")
                     c += 1
                     coin.collect()
             
