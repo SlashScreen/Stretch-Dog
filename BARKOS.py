@@ -5,6 +5,7 @@
 #Save, Load
 
 import coin_class as cclass
+import ast
 
 def loadLevel(level):
     
@@ -57,6 +58,25 @@ def loadLevel(level):
         t+=1 #index
     #print("leveldata------",leveldata)
     return leveldata
+
+def constructSaveData(coins,levels):
+    data = {}
+    data["c"] = coins
+    data["complete"] = levels
+    return data
+    print(data)
+
+def save(data):
+    print(data)
+    f = open("save/save.bark","w+")
+    f.write(str(data))
+    f.close()
+
+def load():
+    f = open("save/save.bark")
+    data = ast.literal_eval(f.read())
+    print(data["c"],data["complete"])
+    return data
 
 def isOverlapping (rect1, rect2):
     return rect1.colliderect(rect2)

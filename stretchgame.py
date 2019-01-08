@@ -12,7 +12,7 @@ def main(level,coins):
     print("init")
     pygame.init()
     screen = pygame.display.set_mode((400, 300))
-    c = coins
+    c = 0
     foot_distance = 0
     gravity = -3
     vel = 0
@@ -108,13 +108,13 @@ def main(level,coins):
                     tileimg = pygame.image.load("assets/grass.png")
                 elif tile["tile"] == "stone":
                     tileimg = pygame.image.load("assets/stone.png")
-                elif tile["tile"] == "win":
+                elif tile["tile"] == "win": #WIN#
                     tileimg = pygame.image.load("assets/win.png") #Flip
                     winbox = getStandardRect(screen,rowcount,direction,scroll,pos) #Win box
                     screen.blit(tileimg, winbox)
                     background.fill((125,125,0),rect = winbox)
                     if bark.isOverlapping(colbox,winbox): #Test flip collision
-                        return c
+                        return coins + c
                 elif tile["tile"] == "flip":
                     tileimg = pygame.image.load("assets/flip.png")
                     flipbox = getStandardRect(screen,rowcount,direction,scroll,pos) #Win box
@@ -140,6 +140,9 @@ def main(level,coins):
                                 vel = 0
                                 foot_distance = 0
                                 direction = 1
+                                for coin in level["coins"].values():
+                                    coin.reset()
+                                c = 0
     
                 
                     
@@ -147,6 +150,7 @@ def main(level,coins):
                     
         for event in pygame.event.get(): #Quit
             if event.type == pygame.QUIT:
+                bark.save(bark.constructSaveData(coins,["level1"]))
                 raise Exception('Quitting Game')
             if event.type == pygame.KEYDOWN: #Keydown
                 if event.key == pygame.K_SPACE:

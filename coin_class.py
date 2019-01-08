@@ -22,10 +22,13 @@ class coin:
     def getImg(self):
         return self.img
 
+    def reset(self):
+        self.visible = True
+
     def collect(self):
         if self.visible:
             self.visible = False
-            print("collected")
+            #print("collected")
 
     def isColliding(self,other):
         return bark.isOverlapping(other,self.rect)

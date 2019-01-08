@@ -8,7 +8,9 @@ def loadAndPlay(levelname,coins):
     c = stretch.main(bark.loadLevel(levelname+".bark"),coins)
     return c
 
-def mainmenu(coins):
+def mainmenu(coins,completed):
+
+    print(coins,completed)
 
     ###INIT###
     
@@ -37,7 +39,7 @@ def mainmenu(coins):
         
         ###START###
         
-        background.fill((255,255,255))
+        background.fill((255,255,255))  
         pos = 0
 
         ###RENDER BUTTONS
@@ -64,6 +66,7 @@ def mainmenu(coins):
         
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
+                bark.save(bark.constructSaveData(coins,["level1"]))
                 pygame.quit()
             
         ###SYSTEM STUFF###
@@ -71,4 +74,5 @@ def mainmenu(coins):
         pygame.display.flip()
         clock.tick(60)
 
-mainmenu(coins)
+file = bark.load()
+mainmenu(file["c"],file["complete"])
