@@ -48,7 +48,10 @@ def mainmenu(coins,completed):
             pos+=1
             rect = pygame.Rect((screen.get_size()[0]/2)-(width/2),(pos*75)+offset,width,height) #Create button
             textsurface = myfont.render("Some text!", 1, (255,255,0)) #Text Surface
-            background.fill((0,0,0),rect = rect) #Draw button
+            if but["file"] in completed:
+                background.fill((0,255,0),rect = rect) #Draw button
+            else:
+                background.fill((0,0,0),rect = rect) #Draw button
             screen.blit(background, (0, 0)) #Blit button
             screen.blit(textsurface, (100, 100)) #Blit text
             #print("past blit")
@@ -56,6 +59,8 @@ def mainmenu(coins,completed):
                 if rect.collidepoint(pygame.mouse.get_pos()):
                     try:
                         coins = loadAndPlay(but["file"],coins) #Play
+                        if not but["file"] in completed:
+                            completed.append(but["file"])
                         print (coins)
                     except Exception as e:
                         print(e,"error")
@@ -66,7 +71,7 @@ def mainmenu(coins,completed):
         
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                bark.save(bark.constructSaveData(coins,["level1"]))
+                bark.save(bark.constructSaveData(coins,completed))
                 pygame.quit()
             
         ###SYSTEM STUFF###
