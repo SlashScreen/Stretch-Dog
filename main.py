@@ -26,12 +26,12 @@ def mainmenu(coins,completed):
     button = {}
     width = 100
     height = 30
-    offset = 50
+    offset = 10
     button["levels"] = {}
-    button["levels"][0] = {}
-    button["levels"][0]["file"] =  "level1"
-    button["levels"][1] = {}
-    button["levels"][1]["file"] =  "level2"
+    llist = bark.getLevelList()
+    for i in range(len(llist)):
+        button["levels"][i] = {}
+        button["levels"][i]["file"] =  llist[i]
 
     ###LOOP##
 
@@ -45,7 +45,7 @@ def mainmenu(coins,completed):
         ###RENDER BUTTONS
         
         for but in button["levels"].values():
-            pos+=1
+            
             rect = pygame.Rect((screen.get_size()[0]/2)-(width/2),(pos*75)+offset,width,height) #Create button
             textsurface = myfont.render("Some text!", 1, (255,255,0)) #Text Surface
             if but["file"] in completed:
@@ -65,6 +65,8 @@ def mainmenu(coins,completed):
                     except Exception as e:
                         print(e,"error")
                         pygame.quit()
+            pos+=1
+            
         screen.blit(background, (0, 0))
 
         ###CONTROLS###

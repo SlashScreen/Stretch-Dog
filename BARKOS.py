@@ -6,6 +6,7 @@
 
 import coin_class as cclass
 import ast
+import json
 
 def loadLevel(level):
     
@@ -71,6 +72,11 @@ def save(data):
     f = open("save/save.bark","w+")
     f.write(str(data))
     f.close()
+
+def getLevelList():
+    f = open("levellist.bark","r+")
+    lst = ast.literal_eval(f.read())
+    return lst
 
 def load():
     f = open("save/save.bark")
