@@ -16,6 +16,8 @@ def mainmenu(coins,completed):
     
     pygame.init()
     pygame.font.init()
+    butimg = pygame.image.load("assets/startbutton.png")
+    completeimg = butimg = pygame.image.load("assets/startbuttondone.png")
 
     ###VARIABLES###
     
@@ -39,7 +41,7 @@ def mainmenu(coins,completed):
         
         ###START###
         
-        background.fill((255,255,255))  
+        background.fill((135,206,235))  
         pos = 0
 
         ###RENDER BUTTONS
@@ -47,13 +49,15 @@ def mainmenu(coins,completed):
         for but in button["levels"].values():
             
             rect = pygame.Rect((screen.get_size()[0]/2)-(width/2),(pos*75)+offset,width,height) #Create button
-            textsurface = myfont.render("Some text!", 1, (255,255,0)) #Text Surface
+            textsurface = myfont.render(but["file"], 1, (255,255,0)) #Text Surface
             if but["file"] in completed:
                 background.fill((0,255,0),rect = rect) #Draw button
+                screen.blit(pygame.transform.scale(completeimg,rect.size),rect)
             else:
                 background.fill((0,0,0),rect = rect) #Draw button
-            screen.blit(background, (0, 0)) #Blit button
-            screen.blit(textsurface, (100, 100)) #Blit text
+                screen.blit(pygame.transform.scale(butimg,rect.size),rect)
+            #screen.blit(background, (0, 0)) #Blit button
+            screen.blit(textsurface, rect) #Blit text
             #print("past blit")
             if pygame.mouse.get_pressed()[0]: #Check if clicked
                 if rect.collidepoint(pygame.mouse.get_pos()):
@@ -67,7 +71,7 @@ def mainmenu(coins,completed):
                         pygame.quit()
             pos+=1
             
-        screen.blit(background, (0, 0))
+        #screen.blit(background, (0, 0))
 
         ###CONTROLS###
         
