@@ -11,6 +11,7 @@ class coin:
         self.img = pygame.image.load("assets/coin.png")
         self.sound = pygame.mixer.Sound("assets/music/coin.wav")
         self.channel = pygame.mixer.Channel(1)
+        #print(self.sound)
 
     def getVisible(self):
         return self.visible
