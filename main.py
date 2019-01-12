@@ -52,14 +52,17 @@ def mainmenu(coins,completed):
         pos = 0
 
         ###RENDER###
+        
         #Render Logo and coins
+        
         csurface = myfont.render("Coins: "+str(coins), 1, (255,255,0)) #Text Surface
         lrect = pygame.Rect(0,0,50,screen.get_height())
-        screen.blit(pygame.transform.scale(logo,lrect.size),lrect)
-        screen.blit(csurface, (55,5))
+        screen.blit(pygame.transform.scale(logo,lrect.size),lrect) #logo
+        screen.blit(csurface, (55,5)) #text
+        
         #Render Buttons
+        
         for but in button["levels"].values():
-            
             rect = pygame.Rect((screen.get_size()[0]/2)-(width/2),(pos*75)+offset,width,height) #Create button
             textsurface = myfont.render(but["file"], 1, (255,255,0)) #Text Surface
             if but["file"] in completed:
