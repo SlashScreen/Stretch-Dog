@@ -16,6 +16,7 @@ def mainmenu(coins,completed):
     
     pygame.init()
     pygame.font.init()
+    pygame.display.set_caption("STRETCHDOG")
     pygame.mixer.pre_init(16500, -16, 2, 2048)
     pygame.mixer.music.load("assets/music/stretch-theme.ogg")
     pygame.mixer.music.play(-1)
@@ -77,6 +78,7 @@ def mainmenu(coins,completed):
                         coins = loadAndPlay(but["file"],coins) #Play
                         pygame.mixer.music.load("assets/music/stretch-theme.ogg")
                         pygame.mixer.music.play(-1)
+                        pygame.display.set_caption("STRETCHDOG")
                         if not but["file"] in completed:
                             completed.append(but["file"])
                         print (coins)
