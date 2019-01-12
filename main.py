@@ -16,8 +16,9 @@ def mainmenu(coins,completed):
     
     pygame.init()
     pygame.font.init()
-    pygame.mixer.music.load("assets/music/stretch-theme.wav")
-    pygame.mixer.music.play()
+    pygame.mixer.pre_init(16500, -16, 2, 2048)
+    pygame.mixer.music.load("assets/music/stretch-theme.ogg")
+    pygame.mixer.music.play(-1)
 
     ###VARIABLES###
     
@@ -32,7 +33,8 @@ def mainmenu(coins,completed):
     button["levels"] = {}
     llist = bark.getLevelList()
     butimg = pygame.image.load("assets/startbutton.png")
-    completeimg = butimg = pygame.image.load("assets/startbuttondone.png")
+    completeimg = pygame.image.load("assets/startbuttondone.png")
+    logo = pygame.image.load("assets/stretchdoglogo.png")
 
     
     for i in range(len(llist)):
@@ -49,8 +51,13 @@ def mainmenu(coins,completed):
         screen.blit(background, (0,0))
         pos = 0
 
-        ###RENDER BUTTONS
-        
+        ###RENDER###
+        #Render Logo and coins
+        csurface = myfont.render("Coins: "+str(coins), 1, (255,255,0)) #Text Surface
+        lrect = pygame.Rect(0,0,50,screen.get_height())
+        screen.blit(pygame.transform.scale(logo,lrect.size),lrect)
+        screen.blit(csurface, (55,5))
+        #Render Buttons
         for but in button["levels"].values():
             
             rect = pygame.Rect((screen.get_size()[0]/2)-(width/2),(pos*75)+offset,width,height) #Create button
@@ -65,8 +72,8 @@ def mainmenu(coins,completed):
                     try:
                         pygame.mixer.music.stop()
                         coins = loadAndPlay(but["file"],coins) #Play
-                        pygame.mixer.music.load("assets/music/stretch-theme.wav")
-                        pygame.mixer.music.play()
+                        pygame.mixer.music.load("assets/music/stretch-theme.ogg")
+                        pygame.mixer.music.play(-1)
                         if not but["file"] in completed:
                             completed.append(but["file"])
                         print (coins)

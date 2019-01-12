@@ -9,6 +9,8 @@ class coin:
         self.visible = True
         self.rect = pygame.Rect(self.x,self.y,32,32)
         self.img = pygame.image.load("assets/coin.png")
+        #self.sound = pygame.mixer.Sound("assets/music/coin.wav")
+        #print(self.sound)
 
     def getVisible(self):
         return self.visible
@@ -28,6 +30,7 @@ class coin:
     def collect(self):
         if self.visible:
             self.visible = False
+ #           self.sound.play()
             #print("collected")
 
     def isColliding(self,other):

@@ -12,8 +12,8 @@ def main(level,coins):
     print("init")
     pygame.init()
     screen = pygame.display.set_mode((400, 300))
-    pygame.mixer.music.load("assets/music/stretchsong.wav")
-    pygame.mixer.music.play()
+    pygame.mixer.music.load("assets/music/stretchsong.ogg")
+    pygame.mixer.music.play(-1)
 
     ###VARIABLES###
 
