@@ -12,6 +12,11 @@ def main(level,coins):
     print("init")
     pygame.init()
     screen = pygame.display.set_mode((400, 300))
+    pygame.mixer.music.load("assets/music/stretchsong.wav")
+    pygame.mixer.music.play()
+
+    ###VARIABLES###
+
     c = 0
     foot_distance = 0
     gravity = -3
@@ -22,9 +27,6 @@ def main(level,coins):
     scrollstart = 175
     scroll = scrollstart
     jump = 50
-
-    ###VARIABLES###
-    
     doglegs = pygame.image.load("assets/feetv2.png")
     dogbody = pygame.image.load("assets/dogbody.png")
     dogpaws = pygame.image.load("assets/paws.png")
@@ -114,6 +116,7 @@ def main(level,coins):
                     screen.blit(tileimg, winbox)
                     background.fill((125,125,0),rect = winbox)
                     if bark.isOverlapping(colbox,winbox): #Test flip collision
+                        pygame.mixer.music.stop()
                         return coins + c
                 elif tile["tile"] == "flip":
                     tileimg = pygame.image.load("assets/flip.png")

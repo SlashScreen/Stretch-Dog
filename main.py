@@ -16,8 +16,8 @@ def mainmenu(coins,completed):
     
     pygame.init()
     pygame.font.init()
-    butimg = pygame.image.load("assets/startbutton.png")
-    completeimg = butimg = pygame.image.load("assets/startbuttondone.png")
+    pygame.mixer.music.load("assets/music/stretch-theme.wav")
+    pygame.mixer.music.play()
 
     ###VARIABLES###
     
@@ -31,6 +31,10 @@ def mainmenu(coins,completed):
     offset = 10
     button["levels"] = {}
     llist = bark.getLevelList()
+    butimg = pygame.image.load("assets/startbutton.png")
+    completeimg = butimg = pygame.image.load("assets/startbuttondone.png")
+
+    
     for i in range(len(llist)):
         button["levels"][i] = {}
         button["levels"][i]["file"] =  llist[i]
@@ -52,18 +56,17 @@ def mainmenu(coins,completed):
             rect = pygame.Rect((screen.get_size()[0]/2)-(width/2),(pos*75)+offset,width,height) #Create button
             textsurface = myfont.render(but["file"], 1, (255,255,0)) #Text Surface
             if but["file"] in completed:
-#                background.fill((0,255,0),rect = rect) #Draw button
                 screen.blit(pygame.transform.scale(completeimg,rect.size),rect)
             else:
-  #              background.fill((0,0,0),rect = rect) #Draw button
                 screen.blit(pygame.transform.scale(butimg,rect.size),rect)
-            #screen.blit(background, (0, 0)) #Blit button
             screen.blit(textsurface, rect) #Blit text
-            #print("past blit")
             if pygame.mouse.get_pressed()[0]: #Check if clicked
                 if rect.collidepoint(pygame.mouse.get_pos()):
                     try:
+                        pygame.mixer.music.stop()
                         coins = loadAndPlay(but["file"],coins) #Play
+                        pygame.mixer.music.load("assets/music/stretch-theme.wav")
+                        pygame.mixer.music.play()
                         if not but["file"] in completed:
                             completed.append(but["file"])
                         print (coins)
